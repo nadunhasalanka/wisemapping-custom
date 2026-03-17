@@ -1,0 +1,40 @@
+# =============================================================================
+# WiseMapping with PostgreSQL - Test Setup
+# =============================================================================
+
+services:
+  postgresql:
+    image: postgres:15-alpine
+    container_name: ghcr.io/q4us/wisemapping:latest
+    environment:
+      POSTGRES_DB: wisemapping
+      POSTGRES_USER: wisemapping
+      POSTGRES_PASSWORD: password#123
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wisemapping -d wisemapping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - wisemapping-test-network
+    restart: unless-stopped
+
+  wisemapping-app:
+    image: wisemapping-local
+    container_name: wisemapping-app-test
+    ports:
+      - "15672:80"
+    volumes:
+      - ./application.yml:/app/config/application.yml:ro
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    networks:
+      - wisemapping-test-network
+    restart: unless-stopped
+
+networks:
+  wisemapping-test-network:
+    driver: bridge

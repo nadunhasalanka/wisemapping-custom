@@ -1,0 +1,84 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgresql:5432/wisemapping
+    username: wisemapping
+    password: password
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+      continue-on-error: true
+
+  # SMTP email configuration
+  mail:
+    host: smtp.example.com
+    port: 587
+    username: your-smtp-username
+    password: your-smtp-password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # OAuth2 Client Registration
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-google-client-id
+            client-secret: your-google-client-secret
+            scope: openid,profile,email
+          facebook:
+            client-id: your-facebook-client-id
+            client-secret: your-facebook-client-secret
+            scope: email,public_profile
+
+app:
+  site:
+    ui-base-url: http://localhost:3000
+    api-base-url: http://localhost:8080
+  
+  registration:
+    enabled: true
+    email-confirmation-enabled: false
+  
+  mail:
+    enabled: false
+    sender-email: root@localhost
+    support-email: root@localhost
+
+  admin:
+    user: admin@wisemapping.org
+
+  batch:
+    spam-detection:
+      enabled: false
+    history-cleanup:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+resilience4j:
+  ratelimiter:
+    instances:
+      mindmapUpdateLimiter:
+        limitForPeriod: 30
+        limitRefreshPeriod: 1s
+      mindmapCreateLimiter:
+        limitForPeriod: 20
+        limitRefreshPeriod: 1s
