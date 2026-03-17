@@ -6,7 +6,6 @@ services:
   postgresql:
     image: postgres:15-alpine
     container_name: wisemapping-postgresql
-    docker pull 
     environment:
       POSTGRES_DB: wisemapping
       POSTGRES_USER: wisemapping
