@@ -38,3 +38,7 @@ services:
 networks:
   wisemapping-test-network:
     driver: bridge
+
+volumes:
+  postgres-data:
+
