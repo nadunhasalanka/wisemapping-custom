@@ -5,7 +5,8 @@
 services:
   postgresql:
     image: postgres:15-alpine
-    container_name: ghcr.io/q4us/wisemapping:latest
+    container_name: wisemapping-postgresql
+    docker pull 
     environment:
       POSTGRES_DB: wisemapping
       POSTGRES_USER: wisemapping
@@ -22,7 +23,7 @@ services:
     restart: unless-stopped
 
   wisemapping-app:
-    image: wisemapping-local
+    image: ghcr.io/q4us/wisemapping:latest
     container_name: wisemapping-app-test
     ports:
       - "15672:80"
