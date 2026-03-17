@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://postgresql:5432/wisemapping
     username: wisemapping
-    password: password
+    password: password#123
     driver-class-name: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
