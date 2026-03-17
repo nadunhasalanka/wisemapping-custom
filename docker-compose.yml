@@ -25,7 +25,7 @@ services:
     image: ghcr.io/q4us/wisemapping:latest
     container_name: wisemapping-app-test
     ports:
-      - "127.0.0.1:5167:80"
+      - "80:80"
     volumes:
       - ./application.yml:/app/config/application.yml:ro
     depends_on:
